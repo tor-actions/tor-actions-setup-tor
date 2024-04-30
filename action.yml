@@ -28,5 +28,5 @@ outputs:
   config-path:
     description: 'The path to the configuration file (if a path or config was provided).'
 runs:
-  using: 'node12'
+  using: 'node20'
   main: 'dist/index.js'
