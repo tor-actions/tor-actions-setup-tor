@@ -7,7 +7,7 @@ branding:
 inputs: 
   tor-version:
     description: 'The Tor version to download (if necessary) and use. Examples: 0.4.5.7, 0.4.5-rc7'
-    default: '0.4.5.7'
+    default: '0.4.8.9'
   stable:
     description: 'Whether to download only stable versions'
     default: 'false'
