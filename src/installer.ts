@@ -37,7 +37,7 @@ export async function getTor(
   const osArch: string = os.arch();
 
   // check cache
-  const toolPath: string = tc.find('tor', versionSpec);
+  const toolPath: string = tc.find('tor', versionSpec, osArch);
   // If not found in cache, download
   if (toolPath) {
     core.info(`Found in cache @ ${toolPath}`);
@@ -133,7 +133,8 @@ export async function extractTorArchive(archivePath: string): Promise<string> {
 export async function getInfoFromManifest(
   versionSpec: string,
   stable: boolean,
-  auth: string | undefined
+  auth: string | undefined,
+  arch: string = 'x64'
 ): Promise<ITorVersionInfo | null> {
   let info: ITorVersionInfo | null = null;
   const releases = await tc.getManifestFromRepo(
@@ -143,7 +144,8 @@ export async function getInfoFromManifest(
     'main'
   );
   core.info(`matching ${versionSpec}...`);
-  const rel = await tc.findFromManifest(versionSpec, stable, releases);
+  const rel = await tc.findFromManifest(versionSpec, stable, releases, arch);
+  core.info(`rel ${rel}`);
 
   if (rel && rel.files.length > 0) {
     info = <ITorVersionInfo>{};

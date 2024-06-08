@@ -34,11 +34,11 @@ export async function run(): Promise<void> {
       core.debug('Installed directory ' + installDir);
 
       const torHome = './bin';
-      const binPath = path.join('installDir', torHome);
+      const binPath = path.join(installDir, torHome);
       // core.exportVariable('LD_LIBRARY_PATH', binPath);
       core.addPath(path.join(installDir, 'bin'));
       core.addPath(path.join(binPath, 'bin'));
-      core.info('Added tor to the path');
+      core.info(`Added tor to the path: ${binPath}`);
 
       core.info(`Successfully setup tor version ${version}`);
     }
