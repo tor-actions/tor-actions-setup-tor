@@ -52,7 +52,7 @@ export async function getTor(
   // Repo see https://github.com/tor-actions/versions
   //
   try {
-    info = await getInfoFromManifest(versionSpec, stable, auth);
+    info = await getInfoFromManifest(versionSpec, stable, auth, osArch);
     if (info) {
       downloadPath = await installTorVersion(info, auth);
     } else {
@@ -145,7 +145,9 @@ export async function getInfoFromManifest(
   );
   core.info(`matching ${versionSpec}...`);
   const rel = await tc.findFromManifest(versionSpec, stable, releases, arch);
-  core.info(`rel ${rel}`);
+  core.debug(`releases ${releases}`);
+  core.debug(`rel ${rel}`);
+  core.debug(`arch ${arch}`);
 
   if (rel && rel.files.length > 0) {
     info = <ITorVersionInfo>{};

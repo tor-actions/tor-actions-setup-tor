@@ -65,7 +65,7 @@ function getTor(versionSpec, stable, auth) {
         // Repo see https://github.com/tor-actions/versions
         //
         try {
-            info = yield getInfoFromManifest(versionSpec, stable, auth);
+            info = yield getInfoFromManifest(versionSpec, stable, auth, osArch);
             if (info) {
                 downloadPath = yield installTorVersion(info, auth);
             }
@@ -133,7 +133,9 @@ function getInfoFromManifest(versionSpec, stable, auth, arch = 'x64') {
         const releases = yield tc.getManifestFromRepo('tor-actions', 'versions', auth, 'main');
         core.info(`matching ${versionSpec}...`);
         const rel = yield tc.findFromManifest(versionSpec, stable, releases, arch);
-        core.info(`rel ${rel}`);
+        core.debug(`releases ${releases}`);
+        core.debug(`rel ${rel}`);
+        core.debug(`arch ${arch}`);
         if (rel && rel.files.length > 0) {
             info = {};
             info.type = 'manifest';
